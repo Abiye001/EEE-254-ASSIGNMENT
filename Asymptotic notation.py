@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-# Set up the figure and axis
+# This code will setup the plot for the time and animate them
 fig, ax = plt.subplots()
 ax.set_xlim(1, 100)
 ax.set_ylim(0, 10000)  # Adjust y-limit for visibility
@@ -11,10 +11,10 @@ ax.set_ylabel('Operations')
 ax.set_title('Time Complexity Classes')
 ax.grid(True)
 
-# Input sizes
+# This is the for the size of the input
 n = np.linspace(1, 100, 1000)
 
-# Initialize lines for each complexity class
+# this part of the code plots time for different complexities
 line_o1, = ax.plot([], [], label='O(1)', color='black')
 line_ologn, = ax.plot([], [], label='O(log n)', color='blue')
 line_on, = ax.plot([], [], label='O(n)', color='green')
@@ -24,7 +24,7 @@ line_on3, = ax.plot([], [], label='O(n³)', color='orange')
 
 ax.legend()
 
-# Initialization function for animation
+# This function helps for the animation
 def init():
     line_o1.set_data([], [])
     line_ologn.set_data([], [])
@@ -34,7 +34,7 @@ def init():
     line_on3.set_data([], [])
     return line_o1, line_ologn, line_on, line_onlogn, line_on2, line_on3
 
-# Animation update function
+# This will update the animation function timt to time
 def update(frame):
     x = n[:int(frame)]
     line_o1.set_data(x, [1] * len(x))  # O(1)
@@ -45,9 +45,8 @@ def update(frame):
     line_on3.set_data(x, x**3)  # O(n³)
     return line_o1, line_ologn, line_on, line_onlogn, line_on2, line_on3
 
-# Create animation
+# The main man, this will create the animation
 ani = FuncAnimation(fig, update, frames=np.linspace(1, 1000, 200), init_func=init, blit=True)
 
 # Save or display the animation
-# ani.save('complexity_animation.mp4', writer='ffmpeg', fps=30)  # Requires ffmpeg
 plt.show()
