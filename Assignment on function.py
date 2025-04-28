@@ -160,4 +160,4 @@ def is_palindrome(s):
     return is_pal(to_chars(s))
 
 print(is_palindrome('Able was I ere I saw Elba'))  # True
-print(is_palindrome('Able was I ere I saw Atlanta'))  # False
+print(is_palindrome('Able was I ere I saw Atlanta'))  # Fale
