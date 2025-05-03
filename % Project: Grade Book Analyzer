@@ -1,0 +1,41 @@
+% Project: Grade Book Analyzer
+
+% Step 1: Create a 4x3 matrix of grades (4 students, 3 tests)
+grades = [85 90 78; ... % Student 1
+          92 88 95; ... % Student 2
+          75 80 82; ... % Student 3
+          60 65 70];   % Student 4
+
+% Step 2: Calculate average score for each student
+student_averages = mean(grades, 2); % Mean along columns (dimension 2)
+
+% Step 3: Find highest score for each test
+test_max = max(grades, [], 1); % Max along rows (dimension 1)
+
+% Step 4: Use logical indexing to find high scores (>80)
+high_scores = grades > 80; % Logical matrix: 1 where score > 80
+num_high_scores = sum(high_scores, 'all'); % Count total high scores
+high_score_values = grades(high_scores); % Extract high scores
+
+% Step 5: Visualize student averages with a bar plot
+figure;
+bar(student_averages, 'FaceColor', 'cyan');
+title('Average Grades per Student');
+xlabel('Student');
+ylabel('Average Score');
+grid on;
+
+% Step 6: Display results
+disp('Grade Book:');
+disp(grades);
+disp('Average Score per Student:');
+for i = 1:4
+    fprintf('Student %d: %.2f\n', i, student_averages(i));
+end
+disp('Highest Score per Test:');
+for i = 1:3
+    fprintf('Test %d: %d\n', i, test_max(i));
+end
+fprintf('Number of Scores > 80: %d\n', num_high_scores);
+disp('High Scores:');
+disp(high_score_values');
