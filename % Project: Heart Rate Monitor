@@ -1,0 +1,54 @@
+% Project: Heart Rate Monitor
+% Plots fake heart rate data
+
+% Step 1: Make fake heart rate data
+time = 1:60; % Time from 1 to 60 seconds
+heartRate = 70 + 20*sin(2*pi*time/10) + randn(1,60)*5; % Create heart rate values
+heartRate = round(max(50, min(120, heartRate))); % Keep values between 50 and 120
+
+% Step 2: Find average heart rate
+avgHeartRate = mean(heartRate);
+
+% Step 3: Show heart rate graph
+figure;
+plot(time, heartRate, '-b', 'LineWidth', 1.5, 'DisplayName', 'Heart Rate'); % Plot heart rate
+hold on;
+plot([1 60], [avgHeartRate avgHeartRate], '--r', 'DisplayName', sprintf('Average (%.1f BPM)', avgHeartRate)); % Add average line
+hold off;
+
+% Set up graph
+title('Heart Rate Over 60 Seconds');
+xlabel('Time (seconds)');
+ylabel('Heart Rate (BPM)');
+legend('Location', 'best');
+grid on;
+
+% Step 4: Show high heart rates (>100 BPM)
+highBPM = heartRate > 100; % Find heart rates over 100
+highTime = time(highBPM); % Get times of high heart rates
+highValues = heartRate(highBPM); % Get high heart rate values
+
+figure;
+plot(time, heartRate, '-b', 'LineWidth', 1.5, 'DisplayName', 'Heart Rate'); % Plot heart rate
+hold on;
+plot(highTime, highValues, 'r*', 'MarkerSize', 8, 'DisplayName', 'High BPM (>100)'); % Mark high points
+plot([1 60], [avgHeartRate avgHeartRate], '--r', 'DisplayName', sprintf('Average (%.1f BPM)', avgHeartRate)); % Add average line
+hold off;
+
+% Set up graph
+title('Heart Rate with High BPM');
+xlabel('Time (seconds)');
+ylabel('Heart Rate (BPM)');
+legend('Location', 'best');
+grid on;
+
+% Step 5: Show results
+disp('Heart Rate Info:');
+fprintf('Average Heart Rate: %.1f BPM\n', avgHeartRate);
+if isempty(highTime)
+    disp('No heart rates over 100 BPM.');
+else
+    disp('High heart rates (>100 BPM) at seconds:');
+    fprintf('%.0f ', highTime);
+    fprintf('\n');
+end
